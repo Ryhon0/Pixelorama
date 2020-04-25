@@ -320,6 +320,16 @@ func _input(event : InputEvent) -> void:
 			mouse_pressed = true
 
 	if mouse_pressed:
+		if Input.is_action_pressed("hold_colorpicker_tool"):
+			if can_handle:
+				var pixel_color : Color = sprite.get_pixelv(mouse_pos)
+				if color_picker_for == 0: # Pick for the left color
+					Global.left_color_picker.color = pixel_color
+					Global.update_left_custom_brush()
+				elif color_picker_for == 1: # Pick for the left color
+					Global.right_color_picker.color = pixel_color
+					Global.update_right_custom_brush()
+				return
 		if can_handle || is_making_line:
 			if current_action != "None" && current_action != "ColorPicker" && current_action != "Zoom":
 				if current_action == "RectSelect":
